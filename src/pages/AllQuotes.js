@@ -30,7 +30,11 @@ const AllQuotes = () => {
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return (
+      <div className="centered">
+        <p>{error}</p>
+      </div>
+    );
   }
   return <QuoteList quotes={loadedQuotes} />;
 };
