@@ -37,7 +37,7 @@
 
 .control textarea:focus {
   background-color: #cbf8f8;
-  outline-color: teal;
+  outline-color: #083aa9;
 }
 
 .actions button {
