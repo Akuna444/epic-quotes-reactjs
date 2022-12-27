@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import useHttp from "../../hooks/use-http";
 import { getAllComments } from "../../lib/api";
 import { useParams } from "react-router-dom";
@@ -18,29 +18,29 @@ const Comments = () => {
     sendRequest(quoteId);
   }, [sendRequest, quoteId]);
 
-  const addCommentHandler = () => {
-    if (status === "pending") {
-      comment = (
-        <div className="centered">
-          <LoadingSpinner />
-        </div>
-      );
-    }
+  const addCommentHandler = useCallback(() => {
+    sendRequest(quoteId);
+  }, [sendRequest, quoteId]);
 
-    if (
-      status === "completed" &&
-      (loadedComments || loadedComments.length > 0)
-    ) {
-      comment = <CommentsList comments={loadedComments} />;
-    }
+  if (status === "pending") {
+    comment = (
+      <div className="centered">
+        <LoadingSpinner />
+      </div>
+    );
+  }
 
-    if (
-      status === "completed" &&
-      (!loadedComments || loadedComments.length === 0)
-    ) {
-      comment = <p>No comments added yet</p>;
-    }
-  };
+  if (status === "completed" && (loadedComments || loadedComments.length > 0)) {
+    comment = <CommentsList comments={loadedComments} />;
+  }
+
+  if (
+    status === "completed" &&
+    (!loadedComments || loadedComments.length === 0)
+  ) {
+    comment = <p>No comments added yet</p>;
+  }
+
   const startAddCommentHandler = () => {
     setIsAddingComment(true);
   };
