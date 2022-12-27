@@ -51,6 +51,6 @@ body {
 
 .btn--flat:hover,
 .btn--flat:active {
-  background-color: 083aa9l;
-  color: white;
+  background-color: #002e94;
+  color: #fff;
 }
