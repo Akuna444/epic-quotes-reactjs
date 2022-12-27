@@ -13,33 +13,39 @@ const QuoteDetail = () => {
   const {
     sendRequest,
     status,
-    data: loadedQuotes,
+    data: loadedQuote,
     error,
-  } = useHttp(getSingleQuote, true);
+  } = useHttp(getSingleQuote);
 
   const { quoteId } = params;
+
   useEffect(() => {
     sendRequest(quoteId);
   }, [sendRequest, quoteId]);
 
   if (status === "pending") {
-    <div className="centered">
-      <LoadingSpinner />
-    </div>;
+    return (
+      <div className="centered">
+        <LoadingSpinner />
+      </div>
+    );
   }
 
   if (error) {
-    <div className="centered">
-      <p>{error}</p>
-    </div>;
+    return (
+      <div className="centered">
+        <p>{error}</p>
+      </div>
+    );
   }
-  if (loadedQuotes.text) {
-    return <h1>No Quote found</h1>;
+
+  if (!loadedQuote) {
+    return <p>No quote found</p>;
   }
 
   return (
     <Fragment>
-      <HighlightedQuote text={loadedQuotes.text} author={loadedQuotes.author} />
+      <HighlightedQuote text={loadedQuote.text} author={loadedQuote.author} />
       <Route path={`${match.path}`} exact>
         <div className="centered">
           <Link className="btn--flat" to={`${match.url}/comment`}>
