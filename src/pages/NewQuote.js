@@ -7,7 +7,7 @@ import LoadingSpinner from "../components/UI/LoadingSpinner";
 
 const NewQuote = () => {
   const history = useHistory();
-  const [sendRequest, status] = useHttp(addQuote);
+  const { sendRequest, status } = useHttp(addQuote);
   const onAddQuoteHandler = (quoteData) => {
     sendRequest(quoteData);
   };
@@ -19,7 +19,11 @@ const NewQuote = () => {
   }, [status, history]);
 
   if (status === "pending") {
-    return <LoadingSpinner />;
+    return (
+      <div className="centered">
+        <LoadingSpinner />
+      </div>
+    );
   }
 
   return <QuoteForm onAddQuote={onAddQuoteHandler} />;
