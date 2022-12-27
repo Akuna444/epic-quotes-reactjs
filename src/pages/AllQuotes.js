@@ -25,7 +25,7 @@ const AllQuotes = () => {
     );
   }
 
-  if (status === "completed " && (!loadedQuotes || loadedQuotes.length === 0)) {
+  if (status === "completed" && (!loadedQuotes || loadedQuotes.length === 0)) {
     return <NoQuotesFound />;
   }
 
